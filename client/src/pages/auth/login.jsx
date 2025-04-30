@@ -15,11 +15,11 @@ const AuthLogin = () => {
   const dispatch = useDispatch();
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(loginUser(formData)).then((res) => {
-      if (res?.payload?.success) {
-        toast(res?.payload?.message);
+    dispatch(loginUser(formData)).then((data) => {
+      if (data?.payload?.success) {
+        toast(data?.payload?.message);
       } else {
-        toast(res?.payload?.message);
+        toast(data?.payload?.message);
       }
     });
   };
