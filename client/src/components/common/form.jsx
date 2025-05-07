@@ -1,8 +1,15 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Select } from "@radix-ui/react-select";
+
 import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const CommonForm = ({
   formControls,
@@ -47,7 +54,7 @@ const CommonForm = ({
               {getControlItem.options && getControlItem.options.length > 0
                 ? getControlItem.options.map((optionItem) => (
                     <SelectItem key={optionItem.id} value={optionItem.id}>
-                      {option.label}
+                      {optionItem.label}
                     </SelectItem>
                   ))
                 : null}

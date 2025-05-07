@@ -41,7 +41,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-
 // -----------------------------------------------------
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -90,8 +89,30 @@ const loginUser = async (req, res) => {
       .json({ success: false, message: "Internal server error" });
   }
 };
-
+const logoutUser = (req, res) => {
+  res.clearCookie("token");
+  res.json({
+    success: true,
+    message: "User logged out successfully",
+  });
+};
+const authMiddleware = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, "CLIENT_SECRET_KEY");
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error(error);
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+};
 module.exports = {
   registerUser,
   loginUser,
+  logoutUser,
+  authMiddleware,
 };
